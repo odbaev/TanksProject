@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TanksProject"
         mc:Ignorable="d"
-        Loaded="Window_Loaded"
+        ContentRendered="Window_ContentRendered"
         Title="TanksProject" Height="400" Width="600">
 
     <Window.Resources>
@@ -17,6 +17,8 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Background" Value="Green"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Black"/>
         </Style>
     </Window.Resources>
 
@@ -36,10 +38,10 @@
 
         <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="#FF6C96C9" Margin="0,5,0,0" SnapsToDevicePixels="True">
             <Grid x:Name="grid">
-                <Label x:Name="label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="267,232,0,0"/>
-                <Label x:Name="label1" HorizontalAlignment="Left" Margin="422,200,0,0" VerticalAlignment="Top"/>
-                <Label x:Name="label2" HorizontalAlignment="Left" Margin="334,112,0,0" VerticalAlignment="Top" Width="40" Height="40"/>
-                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="47,162,0,0" VerticalAlignment="Top" Width="129" Height="30"/>
+                <Label x:Name="label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="428,67,0,0"/>
+                <Label x:Name="label1" HorizontalAlignment="Left" Margin="350,205,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="label2" HorizontalAlignment="Left" Margin="252,135,0,0" VerticalAlignment="Top" Width="40" Height="40"/>
+                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="29,67,0,0" VerticalAlignment="Top" Width="148" Height="50"/>
             </Grid>
         </Border>
     </Grid>

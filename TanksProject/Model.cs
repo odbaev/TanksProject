@@ -19,6 +19,43 @@ namespace TanksProject
             tanks = grid.Children.OfType<Label>().Select(label => new Tank(label)).ToList<Tank>();
             obstacles = grid.Children.OfType<Button>().ToList<Button>();
             this.grid = grid;
+
+            if (!IsValidInitialState())
+            {
+                throw new Exception("Invalid initial state!");
+            }
+        }
+
+        private bool IsValidInitialState()
+        {
+            List<Rect> rects = new List<Rect>();
+
+            foreach (Tank tank in tanks)
+            {
+                rects.Add(new Rect(tank.Location, tank.Size));
+            }
+
+            foreach (Button obstacle in obstacles)
+            {
+                Point location = obstacle.TranslatePoint(new Point(0, 0), grid);
+                rects.Add(new Rect(location, obstacle.RenderSize));
+            }
+
+            for (int i = 0; i < rects.Count - 1; i++)
+            {
+                for (int j = i + 1; j < rects.Count; j++)
+                {
+                    if (rects[i].IntersectsWith(rects[j])) return false;
+                }
+            }
+
+            foreach (Rect rect in rects)
+            {
+                if (rect.Left < 0 || rect.Right > grid.ActualWidth ||
+                    rect.Top < 0 || rect.Bottom > grid.ActualHeight) return false;
+            }
+
+            return true;
         }
     }
 }
