@@ -24,5 +24,10 @@ namespace TanksProject
         {
             InitializeComponent();
         }
+
+        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Tank.Speed = (int)slider.Value;
+        }
     }
 }

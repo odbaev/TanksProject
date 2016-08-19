@@ -6,6 +6,18 @@
         xmlns:local="clr-namespace:TanksProject"
         mc:Ignorable="d"
         Title="TanksProject" Height="400" Width="600">
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Content" Value="T"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="Green"/>
+        </Style>
+    </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -18,12 +30,14 @@
                 <TextBlock Text="Tank speed: " FontSize="14"/>
                 <TextBlock Text="{Binding ElementName=slider, Path=Value}" FontSize="14" MinWidth="20"/>
             </StackPanel>
-            <Slider Name="slider" Maximum="20" Value="5" TickPlacement="BottomRight" IsSnapToTickEnabled="True" MinWidth="400" HorizontalAlignment="Center" Foreground="Black"/>
+            <Slider Name="slider" Maximum="20" Value="5" TickPlacement="BottomRight" IsSnapToTickEnabled="True" MinWidth="400" HorizontalAlignment="Center" Foreground="Black" ValueChanged="slider_ValueChanged"/>
             <Separator Background="#FF6C96C9"/>
         </StackPanel>
 
         <Grid Grid.Row="1">
-            
+            <Label x:Name="label" HorizontalAlignment="Left" Margin="216,152,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label1" HorizontalAlignment="Left" Margin="422,200,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label2" HorizontalAlignment="Left" Margin="334,112,0,0" VerticalAlignment="Top" Width="40" Height="40"/>
         </Grid>
 
     </Grid>
