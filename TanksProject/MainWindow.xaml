@@ -5,9 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TanksProject"
         mc:Ignorable="d"
-        Title="TanksProject" Height="350" Width="525">
+        Title="TanksProject" Height="400" Width="600">
     
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                <TextBlock Text="Tank speed: " FontSize="14"/>
+                <TextBlock Text="{Binding ElementName=slider, Path=Value}" FontSize="14" MinWidth="20"/>
+            </StackPanel>
+            <Slider Name="slider" Maximum="20" Value="5" TickPlacement="BottomRight" IsSnapToTickEnabled="True" MinWidth="400" HorizontalAlignment="Center" Foreground="Black"/>
+            <Separator Background="#FF6C96C9"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            
+        </Grid>
 
     </Grid>
 </Window>
