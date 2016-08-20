@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using System.Threading;
@@ -12,13 +10,20 @@ namespace TanksProject
     public class Model
     {
         private List<Tank> tanks;
-        private List<Button> obstacles;
+        private List<Rect> obstacles;
         private Grid grid;
 
         public Model(Grid grid)
         {
             tanks = grid.Children.OfType<Label>().Select(label => new Tank(label)).ToList<Tank>();
-            obstacles = grid.Children.OfType<Button>().ToList<Button>();
+
+            obstacles = new List<Rect>();
+            foreach (Button obstacle in grid.Children.OfType<Button>())
+            {
+                Point location = obstacle.TranslatePoint(new Point(0, 0), grid);
+                obstacles.Add(new Rect(location, obstacle.RenderSize));
+            }
+
             this.grid = grid;
 
             if (!IsValidInitialState())
@@ -29,17 +34,11 @@ namespace TanksProject
 
         private bool IsValidInitialState()
         {
-            List<Rect> rects = new List<Rect>();
+            List<Rect> rects = new List<Rect>(obstacles);
 
             foreach (Tank tank in tanks)
             {
                 rects.Add(new Rect(tank.Location, tank.Size));
-            }
-
-            foreach (Button obstacle in obstacles)
-            {
-                Point location = obstacle.TranslatePoint(new Point(0, 0), grid);
-                rects.Add(new Rect(location, obstacle.RenderSize));
             }
 
             for (int i = 0; i < rects.Count - 1; i++)
@@ -62,10 +61,10 @@ namespace TanksProject
         public void Start()
         {
             for (;;)
-            {          
+            {
                 foreach (Tank tank in tanks)
                 {
-                    tank.Move();
+                    tank.Move(tanks, obstacles, grid);
                 }
 
                 if (Tank.Speed == 0) return;

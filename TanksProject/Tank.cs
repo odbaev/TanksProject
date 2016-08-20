@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
-using System.Windows.Threading;
 
 namespace TanksProject
 {
@@ -18,7 +14,7 @@ namespace TanksProject
         public Size Size { get; }
         public Point Location { get; private set; }
 
-        public enum TankDirection { Left, Right, Up, Down};
+        public enum TankDirection { Left, Right, Up, Down };
         public TankDirection Direction { get; private set; }
 
         private static Random rand = new Random();
@@ -26,7 +22,7 @@ namespace TanksProject
         public Tank(Label form)
         {
             this.form = form;
-            
+
             Size = new Size(form.ActualWidth, form.ActualHeight);
             Location = new Point(form.Margin.Left, form.Margin.Top);
 
@@ -34,9 +30,87 @@ namespace TanksProject
             Direction = directions[rand.Next(directions.Length)];
         }
 
-        public void Move()
+        private void ChangeDirection()
         {
-            switch(Direction)
+            switch (Direction)
+            {
+                case TankDirection.Left:
+                    Direction = TankDirection.Right;
+                    break;
+                case TankDirection.Right:
+                    Direction = TankDirection.Left;
+                    break;
+                case TankDirection.Up:
+                    Direction = TankDirection.Down;
+                    break;
+                case TankDirection.Down:
+                    Direction = TankDirection.Up;
+                    break;
+            }
+        }
+
+        private bool HasObstacleToMove(List<Tank> tanks, List<Rect> obstacles, Grid grid)
+        {
+            if (Location.X == 0 || Location.X + Size.Width == (int)grid.ActualWidth ||
+                Location.Y == 0 || Location.Y + Size.Height == (int)grid.ActualHeight) return true;
+
+            Rect tankRect = new Rect(Location, Size);
+
+            foreach (Rect rect in obstacles)
+            {
+                if (tankRect.IntersectsWith(rect)) return true;
+            }
+
+            foreach (Tank tank in tanks)
+            {
+                if (tank == this) continue;
+
+                Rect rect = new Rect(tank.Location, tank.Size);
+                
+                if (tankRect.IntersectsWith(rect))
+                {
+                    switch (Direction)
+                    {
+                        case TankDirection.Left:
+                            if (tankRect.Left == rect.Right)
+                            {
+                                if (tank.Direction == TankDirection.Right) tank.ChangeDirection();
+                                return true;
+                            }
+                            break;
+                        case TankDirection.Right:
+                            if (tankRect.Right == rect.Left)
+                            {
+                                if (tank.Direction == TankDirection.Left) tank.ChangeDirection();
+                                return true;
+                            }
+                            break;
+                        case TankDirection.Up:
+                            if (tankRect.Top == rect.Bottom)
+                            {
+                                if (tank.Direction == TankDirection.Down) tank.ChangeDirection();
+                                return true;
+                            }
+                            break;
+                        case TankDirection.Down:
+                            if (tankRect.Bottom == rect.Top)
+                            {
+                                if (tank.Direction == TankDirection.Up) tank.ChangeDirection();
+                                return true;
+                            }
+                            break;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public void Move(List<Tank> tanks, List<Rect> obstacles, Grid grid)
+        {
+            if (HasObstacleToMove(tanks, obstacles, grid)) ChangeDirection();
+
+            switch (Direction)
             {
                 case TankDirection.Left:
                     Location = new Point(Location.X - 1, Location.Y);
@@ -52,7 +126,7 @@ namespace TanksProject
                     break;
             }
 
-            form.Dispatcher.Invoke(delegate 
+            form.Dispatcher.Invoke(delegate
             { form.Margin = new Thickness(Location.X, Location.Y, 0, 0); });
         }
     }

@@ -38,10 +38,13 @@
 
         <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="#FF6C96C9" Margin="0,5,0,0" SnapsToDevicePixels="True">
             <Grid x:Name="grid">
-                <Label x:Name="label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="428,67,0,0"/>
-                <Label x:Name="label1" HorizontalAlignment="Left" Margin="350,205,0,0" VerticalAlignment="Top"/>
-                <Label x:Name="label2" HorizontalAlignment="Left" Margin="252,135,0,0" VerticalAlignment="Top" Width="40" Height="40"/>
-                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="29,67,0,0" VerticalAlignment="Top" Width="148" Height="50"/>
+                <Label x:Name="label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="484,88,0,0"/>
+                <Label x:Name="label1" HorizontalAlignment="Left" Margin="376,264,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="label2" HorizontalAlignment="Left" Margin="286,110,0,0" VerticalAlignment="Top" Width="40" Height="40"/>
+                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="54,44,0,0" VerticalAlignment="Top" Width="148" Height="50"/>
+                <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="418,164,0,0" VerticalAlignment="Top" Width="127" Height="35"/>
+                <Label x:Name="label3" HorizontalAlignment="Left" Margin="54,170,0,0" VerticalAlignment="Top" Height="40" Width="40"/>
+                <Label x:Name="label4" HorizontalAlignment="Left" Margin="190,230,0,0" VerticalAlignment="Top"/>
             </Grid>
         </Border>
     </Grid>
