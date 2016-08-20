@@ -21,6 +21,8 @@ namespace TanksProject
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Model model;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,18 +32,27 @@ namespace TanksProject
         {
             try
             {
-                Model model = new Model(grid);
+                model = new Model(grid);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 this.Close();
-            }          
+            }
+
+            new Task(() => model.Start()).Start();
         }
 
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            int prevSpeed = Tank.Speed;
+
             Tank.Speed = (int)slider.Value;
+
+            if (prevSpeed == 0 && model != null)
+            {
+                new Task(() => model.Start()).Start();
+            }
         }
     }
 }

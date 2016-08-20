@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
+using System.Threading;
 
 namespace TanksProject
 {
@@ -56,6 +57,21 @@ namespace TanksProject
             }
 
             return true;
+        }
+
+        public void Start()
+        {
+            for (;;)
+            {          
+                foreach (Tank tank in tanks)
+                {
+                    tank.Move();
+                }
+
+                if (Tank.Speed == 0) return;
+
+                Thread.Sleep(1000 / Tank.Speed);
+            }
         }
     }
 }
