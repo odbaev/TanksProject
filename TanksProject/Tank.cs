@@ -51,10 +51,10 @@ namespace TanksProject
 
         private bool HasObstacleToMove(List<Tank> tanks, List<Rect> obstacles, Grid grid)
         {
-            if (Location.X == 0 || Location.X + Size.Width == (int)grid.ActualWidth ||
-                Location.Y == 0 || Location.Y + Size.Height == (int)grid.ActualHeight) return true;
-
             Rect tankRect = new Rect(Location, Size);
+
+            if (tankRect.Left == 0 || tankRect.Right == (int)grid.ActualWidth || 
+                tankRect.Top == 0 || tankRect.Bottom == (int)grid.ActualHeight) return true;
 
             foreach (Rect rect in obstacles)
             {

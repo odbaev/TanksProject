@@ -51,8 +51,8 @@ namespace TanksProject
 
             foreach (Rect rect in rects)
             {
-                if (rect.Left < 0 || rect.Right > grid.ActualWidth ||
-                    rect.Top < 0 || rect.Bottom > grid.ActualHeight) return false;
+                if (rect.Left <= 0 || rect.Right >= (int)grid.ActualWidth ||
+                    rect.Top <= 0 || rect.Bottom >= (int)grid.ActualHeight) return false;
             }
 
             return true;
